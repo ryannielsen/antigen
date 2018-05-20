@@ -34,8 +34,8 @@ typeset -g _ZCACHE_CAPTURE_PREFIX
       fi
       _sources+=("source '${record}';"$'\n')
     elif [[ -d $record ]]; then
-      _PATH+=("${record}")
-      _fpath+=("${record}")
+      _PATH+="\"${record}\""
+      _fpath+="\"${record}\""
     fi
   done
 
@@ -50,7 +50,7 @@ antigen () {
   return 0;
 }
 typeset -gaU fpath path
-fpath+=(${_fpath[@]}) path+=(${_PATH[@]})
+fpath+=(${_fpath}) path+=(${_PATH})
 _antigen_compinit () {
   autoload -Uz compinit; compinit $ANTIGEN_COMPINIT_OPTS -d "$ANTIGEN_COMPDUMP"; compdef _antigen antigen
   add-zsh-hook -D precmd _antigen_compinit
